@@ -3,6 +3,12 @@
 //deck initializer
 const deck = new Array();
 
+//hand initializers, 1 is the player
+const hand1 = new Array();
+const hand2 = new Array();
+const hand3 = new Array();
+const hand4 = new Array();
+
 
 //funny down arrow sound
 document.addEventListener('keydown', function(event) {
@@ -55,6 +61,16 @@ function deckReset() {
 
 //return a random number into an array.
 //removes it from deck, intended to add to a hand array
-function getRandomCard() {
-	return deck.slice(Math.floor(Math.random() * 14););
+function draw() {
+	temp = deck.splice(Math.floor(Math.random() * 14), 1);
+	return temp;
+}
+
+
+//wip game start
+function start() {
+	while (deck.length > 3) {
+		hand1.push(draw);
+		
+	}
 }
