@@ -25,26 +25,34 @@ function Card(val, suit, face) {
   this.face = face;
 }
 
+function print(card) {
+	if (card.face == "Joker") {
+    	return "Joker";
+    }
+	else {
+    	return "" + card.face + " of " + card.suit;
+    }
+}
 
 //making cards
-const card1 = new card(1, "Heart", 3);
-const card2 = new card(2, "Heart", 4);
-const card3 = new card(3, "Heart", 5);
-const card4 = new card(4, "Heart", 6);
-const card5 = new card(5, "Heart", 7);
-const card6 = new card(6, "Heart", 8);
-const card7 = new card(7, "Heart", 9);
-const card8 = new card(8, "Heart", 10);
-const card9 = new card(9, "Heart", "J");
-const card10 = new card(10, "Heart", "Q");
-const card11 = new card(11, "Heart", "K");
-const card12 = new card(12, "Heart", "A");
-const card13 = new card(13, "Heart", 2);
+const card1 = new Card(1, "Hearts", 3);
+const card2 = new Card(2, "Hearts", 4);
+const card3 = new Card(3, "Hearts", 5);
+const card4 = new Card(4, "Hearts", 6);
+const card5 = new Card(5, "Hearts", 7);
+const card6 = new Card(6, "Hearts", 8);
+const card7 = new Card(7, "Hearts", 9);
+const card8 = new Card(8, "Hearts", 10);
+const card9 = new Card(9, "Hearts", "Jack");
+const card10 = new Card(10, "Hearts", "Queen");
+const card11 = new Card(11, "Hearts", "King");
+const card12 = new Card(12, "Hearts", "Ace");
+const card13 = new Card(13, "Hearts", 2);
 
-const card53 = new card("?", "All", "Joker");
-const card54 = new card("?", "All", "Joker");
-const card55 = new card("?", "All", "Joker");
-const card56 = new card("?", "All", "Joker");
+const card53 = new Card("?", " ", "Joker");
+const card54 = new Card("?", " ", "Joker");
+const card55 = new Card("?", " ", "Joker");
+const card56 = new Card("?", " ", "Joker");
 
 
 //sound effect
@@ -62,15 +70,18 @@ function deckReset() {
 //return a random number into an array.
 //removes it from deck, intended to add to a hand array
 function draw() {
-	temp = deck.splice(Math.floor(Math.random() * 14), 1);
-	return temp;
+	temp = deck.splice(Math.floor(Math.random() * deck.length), 1);
+	return temp.pop();
 }
 
 
 //wip game start
 function start() {
 	while (deck.length > 3) {
-		hand1.push(draw);
+		hand1.push(draw());
+		hand2.push(draw());
+		hand3.push(draw());
+		hand4.push(draw());
 		
 	}
 }
