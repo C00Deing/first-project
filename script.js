@@ -1,5 +1,11 @@
 
 
+document.addEventListener('keydown', function(event) {
+  if (event.code == 'ArrowDown') {
+    playSoundvb()
+  }
+});
+
 function Card(val, suit, face) {
   this.val = val;
   this.suit = suit;
@@ -31,8 +37,3 @@ function playSoundvb() {
 	ding.play();
 }
 
-document.addEventListener('keydown', function(event) {
-  if (event.code == 'ArrowDown') {
-    playSoundvb()
-  }
-});
