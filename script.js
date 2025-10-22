@@ -15,6 +15,11 @@ let skipCount = 0;
 
 const midCard = new Array();
 
+const turnOrder = new Array();
+turnOrder.push(hand1,hand2,hand3,hand4);
+
+const playerOrder = new Array();
+playerOrder.push(hand1,hand2,hand3,hand4);
 
 //funny down arrow sound
 document.addEventListener('keydown', function(event) {
@@ -33,13 +38,13 @@ function Card(val, suit, face) {
 
 function print(card) {
 	if (card.face == "Joker") {
-    	return "Joker";
+    	return "A Joker";
     }
 	else if (card.face == 0) {
 		return "No Card";
 	}
 	else {
-    	return "A " + card.face + " of " + card.suit;
+    	return "The " + card.face + " of " + card.suit;
     }
 }
 
@@ -139,8 +144,8 @@ function draw() {
 }
 
 
-//game start
-function start() {
+//round start
+function roundStart() {
 	while (deck.length > 3) {
 		hand1.push(draw());
 		hand2.push(draw());
@@ -151,6 +156,7 @@ function start() {
 	while (midCard.length > 0) {
 		midCard.pop();
 	};
+	
 	
 	midCard.push(card0);
 	turnCount++;
