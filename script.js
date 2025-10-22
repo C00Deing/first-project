@@ -9,6 +9,12 @@ const hand2 = new Array();
 const hand3 = new Array();
 const hand4 = new Array();
 
+let turnCount = 0;
+
+let skipCount = 0;
+
+const midCard = new Array();
+
 
 //funny down arrow sound
 document.addEventListener('keydown', function(event) {
@@ -29,12 +35,18 @@ function print(card) {
 	if (card.face == "Joker") {
     	return "Joker";
     }
+	else if (card.face == 0) {
+		return "No Card";
+	}
 	else {
-    	return "" + card.face + " of " + card.suit;
+    	return "A " + card.face + " of " + card.suit;
     }
 }
 
 //making cards
+
+const card0 = new Card(0, "None", 0)
+
 //Hearts
 const card1 = new Card(1, "Hearts", 3);
 const card2 = new Card(2, "Hearts", 4);
@@ -96,10 +108,10 @@ const card51 = new Card(12, "Clubs", "Ace");
 const card52 = new Card(13, "Clubs", 2);
 
 //jokers
-const card53 = new Card("?", " ", "Joker");
-const card54 = new Card("?", " ", "Joker");
-const card55 = new Card("?", " ", "Joker");
-const card56 = new Card("?", " ", "Joker");
+const card53 = new Card(14, " ", "Joker");
+const card54 = new Card(14, " ", "Joker");
+const card55 = new Card(14, " ", "Joker");
+const card56 = new Card(14, " ", "Joker");
 
 
 //sound effect
@@ -122,11 +134,12 @@ function deckReset() {
 //removes it from deck, intended to add to a hand array
 function draw() {
 	temp = deck.splice(Math.floor(Math.random() * deck.length), 1);
+	
 	return temp.pop();
 }
 
 
-//wip game start
+//game start
 function start() {
 	while (deck.length > 3) {
 		hand1.push(draw());
@@ -134,5 +147,56 @@ function start() {
 		hand3.push(draw());
 		hand4.push(draw());
 		
+	}
+	while (midCard.length > 0) {
+		midCard.pop();
+	};
+	
+	midCard.push(card0);
+	turnCount++;
+}
+
+//play a card
+function play(hand, card) {
+	midCard.pop();
+	midCard.push(card);
+	
+}
+
+//start a turn for given hand (bots)
+function turn(hand) {
+	//set to lowest possible value
+	turnCount++;
+	temp = 20;
+	temp2 = midCard[0].val;
+	temp3 = hand[0];
+	hand.forEach((card, index) => {
+		if (card.val < temp && card.val > temp2) {
+			temp = card.val;
+			temp3 = card;
+		};
+	});
+	if (temp > temp2 && temp != 20) {
+		play(hand, temp3);
+		temp4 = hand.splice(hand.indexOf(temp3),1);
+		skipCount = 0;
+	}
+	else {
+		console.log("No Playable Cards");
+		skipCount++;
+	}
+	
+}
+
+//give an array of the hands
+function turnOrder(handSet) {
+	skipCount = 0;
+	counter = 0;
+	while (skipCount < 3) {
+		if (counter >= 4) {
+			counter -= 4;
+		}
+		turn(handSet[counter]);
+		counter++;
 	}
 }
