@@ -9,6 +9,8 @@ const hand2 = new Array();
 const hand3 = new Array();
 const hand4 = new Array();
 
+const selectedCards = new Array();
+
 let turnCount = 0;
 
 let skipCount = 0;
@@ -188,7 +190,6 @@ function turn(hand) {
 		skipCount = 0;
 	}
 	else {
-		console.log("No Playable Cards");
 		skipCount++;
 	}
 	
@@ -204,5 +205,58 @@ function turnOrder(handSet) {
 		}
 		turn(handSet[counter]);
 		counter++;
+	}
+}
+
+
+//card selection function
+function selectCard(card) {
+	selectedCards.push(card);
+}
+
+//card selection clear
+function unselectAllCards() {
+	while (selectedCards.length > 0) {
+		selectedCards.pop();
+	};
+}
+
+//selection checker to determine if it can be played
+function selectChecker() {
+
+	if (selectedCards.length == midCard.length || selectedCards.length < 5 && selectedCards.length > 0 && midCard.length == 1 && midCard[0].val == 0) {
+		tempArray = new Array();
+		for (let i = 0; i < selectedCards.length; i++) {
+			tempArray.push(selectedCards[i].val);
+		}
+		tempArray.sort();
+		
+		if (tempArray.length == 1 && tempArray[0].val > midCard[0].val) {
+			return true;
+		}
+		else if (tempArray.length < 1 && tempArray[0].val > midCard[0].val) {
+			let num = tempArray[0];
+			for (let i = tempArray.length - 1; i > 0; i--) {
+				if(tempArray[i] == 14) {
+					tempArray.pop;
+					tempArray.push(num);
+					tempArray.sort();
+				}
+			}
+			tempArray.sort();
+			if (tempArray[tempArray.length - 1] == tempArray[0]) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		else {
+			return false;
+		}
+		
+	}
+	else {
+		return false;
 	}
 }
