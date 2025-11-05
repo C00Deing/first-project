@@ -225,19 +225,32 @@ function unselectAllCards() {
 function selectChecker() {
 
 	if (selectedCards.length == midCard.length || selectedCards.length < 5 && selectedCards.length > 0 && midCard.length == 1 && midCard[0].val == 0) {
+		//makes an array of just the values of the selected card(s)
 		tempArray = new Array();
 		for (let i = 0; i < selectedCards.length; i++) {
 			tempArray.push(selectedCards[i].val);
 		}
 		tempArray.sort();
 		
-		if (tempArray.length == 1 && tempArray[0].val > midCard[0].val) {
+		//makes an array of just the values of the last played card(s)
+		tempArray2 = new Array();
+		for (let i = 0; i < midCard.length; i++) {
+			tempArray2.push(midCard[i].val);
+		}
+		tempArray2.sort();
+		
+		//if the middle cards are just jokers you can't beat that
+		if(tempArray2[0] == 14) {
+			return false;
+		}
+		
+		if (tempArray.length == 1 && tempArray[0].val > tempArray2[0]) {
 			return true;
 		}
-		else if (tempArray.length < 1 && tempArray[0].val > midCard[0].val) {
+		else if (tempArray.length < 1 && tempArray[0].val > tempArray2[0]) {
 			let num = tempArray[0];
 			for (let i = tempArray.length - 1; i > 0; i--) {
-				if(tempArray[i] == 14) {
+				if(tempArray[i] == 14 && num != 14) {
 					tempArray.pop;
 					tempArray.push(num);
 					tempArray.sort();
