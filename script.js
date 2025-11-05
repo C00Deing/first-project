@@ -190,7 +190,6 @@ function turn(hand) {
 		skipCount = 0;
 	}
 	else {
-		//console.log("No Playable Cards");
 		skipCount++;
 	}
 	
