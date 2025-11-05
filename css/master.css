@@ -12,8 +12,8 @@
     float: left;
 }
 #card{
-    width: 80px;
-    height: 120px;
+    width: 40px;
+    height: 60px;
 }
 #cardhand{
  position: fixed;
@@ -21,7 +21,7 @@
   left: 0;
   width: 100%;
   background-color: #f60606;
-  padding: 100px;
+  padding: 20px;
   text-align: center;
   z-index: 1000;
 }
