@@ -11,20 +11,21 @@
     font-size: smaller;
     float: left;
 }
-#card{
-    width: 40px;
-    height: 60px;
-}
 #cardhand{
+display: flex;
  position: fixed;
-  bottom: 0;
-  left: 0;
   width: 100%;
   background-color: #f60606;
   padding: 20px;
   text-align: center;
-  z-index: 1000;
+  z-index: 100%
 }
+
+#cardhand img{
+    width: 30px;
+    height: 30px;
+}
+
 .button {
   background-color: #04AA6D;
   border: none;
