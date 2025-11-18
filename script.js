@@ -59,70 +59,70 @@ function print(card) {
 const card0 = new Card(0, "None", 0)
 
 //Hearts
-const card1 = new Card(1, "Hearts", 3);
-const card2 = new Card(2, "Hearts", 4);
-const card3 = new Card(3, "Hearts", 5);
-const card4 = new Card(4, "Hearts", 6);
-const card5 = new Card(5, "Hearts", 7);
-const card6 = new Card(6, "Hearts", 8);
-const card7 = new Card(7, "Hearts", 9);
-const card8 = new Card(8, "Hearts", 10);
-const card9 = new Card(9, "Hearts", "Jack");
-const card10 = new Card(10, "Hearts", "Queen");
-const card11 = new Card(11, "Hearts", "King");
-const card12 = new Card(12, "Hearts", "Ace");
-const card13 = new Card(13, "Hearts", 2);
+const card1 = new Card(1, "hearts", 3);
+const card2 = new Card(2, "hearts", 4);
+const card3 = new Card(3, "hearts", 5);
+const card4 = new Card(4, "hearts", 6);
+const card5 = new Card(5, "hearts", 7);
+const card6 = new Card(6, "hearts", 8);
+const card7 = new Card(7, "hearts", 9);
+const card8 = new Card(8, "hearts", 10);
+const card9 = new Card(9, "hearts", "jack");
+const card10 = new Card(10, "hearts", "queen");
+const card11 = new Card(11, "hearts", "king");
+const card12 = new Card(12, "hearts", "ace");
+const card13 = new Card(13, "hearts", 2);
 
 //Diamonds
-const card14 = new Card(1, "Diamonds", 3);
-const card15 = new Card(2, "Diamonds", 4);
-const card16 = new Card(3, "Diamonds", 5);
-const card17 = new Card(4, "Diamonds", 6);
-const card18 = new Card(5, "Diamonds", 7);
-const card19 = new Card(6, "Diamonds", 8);
-const card20 = new Card(7, "Diamonds", 9);
-const card21 = new Card(8, "Diamonds", 10);
-const card22 = new Card(9, "Diamonds", "Jack");
-const card23 = new Card(10, "Diamonds", "Queen");
-const card24 = new Card(11, "Diamonds", "King");
-const card25 = new Card(12, "Diamonds", "Ace");
-const card26 = new Card(13, "Diamonds", 2);
+const card14 = new Card(1, "diamonds", 3);
+const card15 = new Card(2, "diamonds", 4);
+const card16 = new Card(3, "diamonds", 5);
+const card17 = new Card(4, "diamonds", 6);
+const card18 = new Card(5, "diamonds", 7);
+const card19 = new Card(6, "diamonds", 8);
+const card20 = new Card(7, "diamonds", 9);
+const card21 = new Card(8, "diamonds", 10);
+const card22 = new Card(9, "diamonds", "jack");
+const card23 = new Card(10, "diamonds", "queen");
+const card24 = new Card(11, "diamonds", "king");
+const card25 = new Card(12, "diamonds", "ace");
+const card26 = new Card(13, "diamonds", 2);
 
 //Spades
-const card27 = new Card(1, "Spades", 3);
-const card28 = new Card(2, "Spades", 4);
-const card29 = new Card(3, "Spades", 5);
-const card30 = new Card(4, "Spades", 6);
-const card31 = new Card(5, "Spades", 7);
-const card32 = new Card(6, "Spades", 8);
-const card33 = new Card(7, "Spades", 9);
-const card34 = new Card(8, "Spades", 10);
-const card35 = new Card(9, "Spades", "Jack");
-const card36 = new Card(10, "Spades", "Queen");
-const card37 = new Card(11, "Spades", "King");
-const card38 = new Card(12, "Spades", "Ace");
-const card39 = new Card(13, "Spades", 2);
+const card27 = new Card(1, "spades", 3);
+const card28 = new Card(2, "spades", 4);
+const card29 = new Card(3, "spades", 5);
+const card30 = new Card(4, "spades", 6);
+const card31 = new Card(5, "spades", 7);
+const card32 = new Card(6, "spades", 8);
+const card33 = new Card(7, "spades", 9);
+const card34 = new Card(8, "spades", 10);
+const card35 = new Card(9, "spades", "jack");
+const card36 = new Card(10, "spades", "queen");
+const card37 = new Card(11, "spades", "king");
+const card38 = new Card(12, "spades", "ace");
+const card39 = new Card(13, "spades", 2);
 
 //Clubs
-const card40 = new Card(1, "Clubs", 3);
-const card41 = new Card(2, "Clubs", 4);
-const card42 = new Card(3, "Clubs", 5);
-const card43 = new Card(4, "Clubs", 6);
-const card44 = new Card(5, "Clubs", 7);
-const card45 = new Card(6, "Clubs", 8);
-const card46 = new Card(7, "Clubs", 9);
-const card47 = new Card(8, "Clubs", 10);
-const card48 = new Card(9, "Clubs", "Jack");
-const card49 = new Card(10, "Clubs", "Queen");
-const card50 = new Card(11, "Clubs", "King");
-const card51 = new Card(12, "Clubs", "Ace");
-const card52 = new Card(13, "Clubs", 2);
+const card40 = new Card(1, "clubs", 3);
+const card41 = new Card(2, "clubs", 4);
+const card42 = new Card(3, "clubs", 5);
+const card43 = new Card(4, "clubs", 6);
+const card44 = new Card(5, "clubs", 7);
+const card45 = new Card(6, "clubs", 8);
+const card46 = new Card(7, "clubs", 9);
+const card47 = new Card(8, "clubs", 10);
+const card48 = new Card(9, "clubs", "jack");
+const card49 = new Card(10, "clubs", "queen");
+const card50 = new Card(11, "clubs", "king");
+const card51 = new Card(12, "clubs", "ace");
+const card52 = new Card(13, "clubs", 2);
 
 //jokers
-const card53 = new Card(14, " ", "Joker");
-const card54 = new Card(14, " ", "Joker");
-const card55 = new Card(14, " ", "Joker");
-const card56 = new Card(14, " ", "Joker");
+const card53 = new Card(14, "red", "joker");
+const card54 = new Card(14, "red", "Joker");
+const card55 = new Card(14, "black", "joker");
+const card56 = new Card(14, "black", "joker");
 
 
 //sound effect
@@ -279,4 +279,9 @@ function selectChecker() {
 	else {
 		return false;
 	}
+}
+
+
+function display(card) {
+	return "" + card.face + "_of_" + card.suit + ".png"
 }
