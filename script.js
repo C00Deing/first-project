@@ -23,12 +23,16 @@ turnOrder.push(hand1,hand2,hand3,hand4);
 const playerOrder = new Array();
 playerOrder.push(hand1,hand2,hand3,hand4);
 
-//funny down arrow sound
+//testing and the funny sound
 document.addEventListener('keydown', function(event) {
+  if (event.code == 'ArrowLeft') {
+    document.getElementById("cards1").src = "images/table.png";
+  }
   if (event.code == 'ArrowDown') {
     playSoundvb()
   }
 });
+
 
 
 //make card function
@@ -127,6 +131,7 @@ function playSoundvb() {
 	ding.play();
 }
 
+
 //reset deck
 function deckReset() {
 	deck.push(card1,card2,card3,card4,card5,card6,card7,card8,card9,card10,card11,card12,card13);
@@ -195,6 +200,8 @@ function turn(hand) {
 	
 }
 
+//breaking stuff for some reason
+/*
 //give an array of the hands
 function turnOrder(handSet) {
 	skipCount = 0;
@@ -207,7 +214,7 @@ function turnOrder(handSet) {
 		counter++;
 	}
 }
-
+*/
 
 //card selection function
 function selectCard(card) {
