@@ -25,12 +25,27 @@ playerOrder.push(hand1,hand2,hand3,hand4);
 
 //testing and the funny sound
 document.addEventListener('keydown', function(event) {
-  if (event.code == 'ArrowLeft') {
-    document.getElementById("cards1").src = "images/table.png";
-  }
-  if (event.code == 'ArrowDown') {
-    playSoundvb()
-  }
+	if (event.code == 'ArrowLeft') {
+		deckReset();
+		roundStart();
+		document.getElementById("cards1").src = display(hand1[0]);
+		document.getElementById("cards2").src = display(hand1[1]);
+		document.getElementById("cards3").src = display(hand1[2]);
+		document.getElementById("cards4").src = display(hand1[3]);
+		document.getElementById("cards5").src = display(hand1[4]);
+		document.getElementById("cards6").src = display(hand1[5]);
+		document.getElementById("cards7").src = display(hand1[6]);
+		document.getElementById("cards8").src = display(hand1[7]);
+		document.getElementById("cards9").src = display(hand1[8]);
+		document.getElementById("cards10").src = display(hand1[9]);
+		document.getElementById("cards11").src = display(hand1[10]);
+		document.getElementById("cards12").src = display(hand1[11]);
+		document.getElementById("cards13").src = display(hand1[12]);
+		
+	}
+	if (event.code == 'ArrowDown') {
+		playSoundvb()
+	}
 });
 
 
@@ -139,6 +154,19 @@ function deckReset() {
 	deck.push(card27,card28,card29,card30,card31,card32,card33,card34,card35,card36,card37,card38,card39);
 	deck.push(card40,card41,card42,card43,card44,card45,card46,card47,card48,card49,card50,card51,card52);
 	deck.push(card53,card54,card55,card56);
+	
+	while (hand1.length > 0) {
+		hand1.pop();
+	};
+	while (hand2.length > 0) {
+		hand2.pop();
+	};
+	while (hand3.length > 0) {
+		hand3.pop();
+	};
+	while (hand4.length > 0) {
+		hand4.pop();
+	};
 }
 
 
@@ -283,5 +311,5 @@ function selectChecker() {
 
 
 function display(card) {
-	return "" + card.face + "_of_" + card.suit + ".png"
+	return "images/" + card.face + "_of_" + card.suit + ".png"
 }
