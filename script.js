@@ -49,8 +49,12 @@ document.addEventListener("keydown", function(event) {
 });
 
 document.getElementById("rulesButton").addEventListener("click", function(event) {
-	 playSoundvb()
-	 //window.location.href = "rules.html";
+	 window.location.href = "rules.html";
+	
+});
+
+document.getElementById("startButton").addEventListener("click", function(event) {
+	 window.location.href = "index.html";
 	
 });
 
