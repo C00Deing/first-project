@@ -58,6 +58,11 @@ document.getElementById("startButton").addEventListener("click", function(event)
 	
 });
 
+document.getElementById("backButton").addEventListener("click", function(event) {
+	 window.location.href = "start.html";
+	
+});
+
 
 //make card function
 function Card(val, suit, face) {
