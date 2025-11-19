@@ -44,3 +44,9 @@ padding: 16px 32px;
 margin: 4px 2px;
 text-align: center;
 }
+
+#main{
+	background-image: url(../images/table.png);
+	background-repeat: no-repeat;
+	background-position: center;
+}
