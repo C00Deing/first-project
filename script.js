@@ -41,6 +41,7 @@ document.addEventListener("keydown", function(event) {
 		document.getElementById("cards11").src = display(hand1[10]);
 		document.getElementById("cards12").src = display(hand1[11]);
 		document.getElementById("cards13").src = display(hand1[12]);
+		document.getElementById("cards14").src = display(hand1[13]);
 		
 	}
 	if (event.code == 'ArrowDown') {
