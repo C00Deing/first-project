@@ -36,20 +36,34 @@ text-align: center;
 	background-image: url(../images/table.png);
 	background-repeat: no-repeat;
 	background-position: center;
+	background-size: 70%;
 }
 
 .card {
-	
+	height: 75%;
+	width: auto;
+	background-color: black;
+	padding: 5px;
+}
+
+.selectedCard {
+	background-color: red;
+	height: 75%;
+	width: auto;
+	padding: 5px;
 }
 
 #cardhand{
-	display: flex;
-	position: fixed;
-	background-color: #f60606;
+	display: inline-block;
 	padding: 20px;
-	width: 100%;
+	width: 90%;
+	height: 20%;
 	text-align: center;
-	z-index: 100%;
+	position: absolute;
+	top: 60%;
+	left: 5%;
+	
+	
 }
 
 #screen {
