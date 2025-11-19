@@ -24,7 +24,7 @@ const playerOrder = new Array();
 playerOrder.push(hand1,hand2,hand3,hand4);
 
 //testing and the funny sound
-document.addEventListener('keydown', function(event) {
+document.addEventListener("keydown", function(event) {
 	if (event.code == 'ArrowLeft') {
 		deckReset();
 		roundStart();
@@ -48,6 +48,11 @@ document.addEventListener('keydown', function(event) {
 	}
 });
 
+document.getElementById("rulesbutton").addEventListener("click", function(event) {
+	 playSoundvb()
+	 //window.location.href = "rules.html";
+	
+});
 
 
 //make card function
