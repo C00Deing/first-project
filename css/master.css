@@ -40,7 +40,14 @@ display: flex;
 }
 #title{
 font-family: Arial, Helvetica, sans-serif; 
+font-size: xx-large;
 padding: 16px 32px;
 margin: 4px 2px;
 text-align: center;
+}
+#gamebutton{
+
+}
+#rulesbutton{
+  
 }
