@@ -49,20 +49,27 @@ document.addEventListener("keydown", function(event) {
 	}
 });
 
-document.getElementById("rulesButton").addEventListener("click", function(event) {
-	 window.location.href = "rules.html";
+if (document.URL.includes("start.html")) {
+	document.getElementById("rulesButton").addEventListener("click", function(event) {
+		window.location.href = "rules.html";
 	
-});
+	});
 
-document.getElementById("startButton").addEventListener("click", function(event) {
-	 window.location.href = "index.html";
+	document.getElementById("startButton").addEventListener("click", function(event) {
+		window.location.href = "index.html";
 	
-});
+	});
+}
 
+
+/*
 document.getElementById("backButton").addEventListener("click", function(event) {
 	 window.location.href = "start.html";
 	
 });
+*/
+
+
 
 
 //make card function
@@ -150,7 +157,7 @@ const card52 = new Card(13, "clubs", 2);
 
 //jokers
 const card53 = new Card(14, "red", "joker");
-const card54 = new Card(14, "red", "Joker");
+const card54 = new Card(14, "red", "joker");
 const card55 = new Card(14, "black", "joker");
 const card56 = new Card(14, "black", "joker");
 
