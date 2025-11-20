@@ -11,6 +11,8 @@ const hand4 = new Array();
 
 const selectedCards = new Array();
 
+const helpfulArray = new Array();
+
 let turnCount = 0;
 
 let skipCount = 0;
@@ -32,10 +34,32 @@ document.addEventListener("keydown", function(event) {
 });
 
 if (document.URL.includes("index.html")) {
+	
+	helpfulArray.push(document.getElementById("cards1"));
+	helpfulArray.push(document.getElementById("cards2"));
+	helpfulArray.push(document.getElementById("cards3"));
+	helpfulArray.push(document.getElementById("cards4"));
+	helpfulArray.push(document.getElementById("cards5"));
+	helpfulArray.push(document.getElementById("cards6"));
+	helpfulArray.push(document.getElementById("cards7"));
+	helpfulArray.push(document.getElementById("cards8"));
+	helpfulArray.push(document.getElementById("cards9"));
+	helpfulArray.push(document.getElementById("cards10"));
+	helpfulArray.push(document.getElementById("cards11"));
+	helpfulArray.push(document.getElementById("cards12"));
+	helpfulArray.push(document.getElementById("cards13"));
+	helpfulArray.push(document.getElementById("cards14"));
+		
 	document.addEventListener("keydown", function(event) {
 		if (event.code == 'ArrowLeft') {
 			deckReset();
 			roundStart();
+			
+			for (let i = 0; i < 14; i++) {
+				helpfulArray[i].src = display(hand1[i]);
+			};
+			
+			/*
 			document.getElementById("cards1").src = display(hand1[0]);
 			document.getElementById("cards2").src = display(hand1[1]);
 			document.getElementById("cards3").src = display(hand1[2]);
@@ -50,6 +74,7 @@ if (document.URL.includes("index.html")) {
 			document.getElementById("cards12").src = display(hand1[11]);
 			document.getElementById("cards13").src = display(hand1[12]);
 			document.getElementById("cards14").src = display(hand1[13]);
+			*/
 		}
 	});
 }
