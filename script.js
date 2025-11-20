@@ -25,29 +25,34 @@ playerOrder.push(hand1,hand2,hand3,hand4);
 
 //testing and the funny sound
 document.addEventListener("keydown", function(event) {
-	if (event.code == 'ArrowLeft') {
-		deckReset();
-		roundStart();
-		document.getElementById("cards1").src = display(hand1[0]);
-		document.getElementById("cards2").src = display(hand1[1]);
-		document.getElementById("cards3").src = display(hand1[2]);
-		document.getElementById("cards4").src = display(hand1[3]);
-		document.getElementById("cards5").src = display(hand1[4]);
-		document.getElementById("cards6").src = display(hand1[5]);
-		document.getElementById("cards7").src = display(hand1[6]);
-		document.getElementById("cards8").src = display(hand1[7]);
-		document.getElementById("cards9").src = display(hand1[8]);
-		document.getElementById("cards10").src = display(hand1[9]);
-		document.getElementById("cards11").src = display(hand1[10]);
-		document.getElementById("cards12").src = display(hand1[11]);
-		document.getElementById("cards13").src = display(hand1[12]);
-		document.getElementById("cards14").src = display(hand1[13]);
-		
-	}
+	
 	if (event.code == 'ArrowDown') {
 		playSoundvb()
 	}
 });
+
+if (document.URL.includes("index.html")) {
+	document.addEventListener("keydown", function(event) {
+		if (event.code == 'ArrowLeft') {
+			deckReset();
+			roundStart();
+			document.getElementById("cards1").src = display(hand1[0]);
+			document.getElementById("cards2").src = display(hand1[1]);
+			document.getElementById("cards3").src = display(hand1[2]);
+			document.getElementById("cards4").src = display(hand1[3]);
+			document.getElementById("cards5").src = display(hand1[4]);
+			document.getElementById("cards6").src = display(hand1[5]);
+			document.getElementById("cards7").src = display(hand1[6]);
+			document.getElementById("cards8").src = display(hand1[7]);
+			document.getElementById("cards9").src = display(hand1[8]);
+			document.getElementById("cards10").src = display(hand1[9]);
+			document.getElementById("cards11").src = display(hand1[10]);
+			document.getElementById("cards12").src = display(hand1[11]);
+			document.getElementById("cards13").src = display(hand1[12]);
+			document.getElementById("cards14").src = display(hand1[13]);
+		}
+	});
+}
 
 if (document.URL.includes("start.html")) {
 	document.getElementById("rulesButton").addEventListener("click", function(event) {
@@ -61,15 +66,11 @@ if (document.URL.includes("start.html")) {
 	});
 }
 
-
-/*
-document.getElementById("backButton").addEventListener("click", function(event) {
-	 window.location.href = "start.html";
-	
-});
-*/
-
-
+if (document.URL.includes("rules.html")) {
+	document.getElementById("backButton").addEventListener("click", function(event) {
+		window.location.href = "start.html";
+	});
+}
 
 
 //make card function
