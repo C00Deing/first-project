@@ -57,24 +57,16 @@ if (document.URL.includes("index.html")) {
 			
 			for (let i = 0; i < 14; i++) {
 				helpfulArray[i].src = display(hand1[i]);
+				selectCard(hand1[i], helpfulArray[i]);
+				
+				//helpfulArray[i].classList.remove("card");
+				//helpfulArray[i].classList.add("selectedCard");
 			};
 			
-			/*
-			document.getElementById("cards1").src = display(hand1[0]);
-			document.getElementById("cards2").src = display(hand1[1]);
-			document.getElementById("cards3").src = display(hand1[2]);
-			document.getElementById("cards4").src = display(hand1[3]);
-			document.getElementById("cards5").src = display(hand1[4]);
-			document.getElementById("cards6").src = display(hand1[5]);
-			document.getElementById("cards7").src = display(hand1[6]);
-			document.getElementById("cards8").src = display(hand1[7]);
-			document.getElementById("cards9").src = display(hand1[8]);
-			document.getElementById("cards10").src = display(hand1[9]);
-			document.getElementById("cards11").src = display(hand1[10]);
-			document.getElementById("cards12").src = display(hand1[11]);
-			document.getElementById("cards13").src = display(hand1[12]);
-			document.getElementById("cards14").src = display(hand1[13]);
-			*/
+			
+			
+			
+			
 		}
 	});
 }
@@ -293,8 +285,10 @@ function turnOrder(handSet) {
 */
 
 //card selection function
-function selectCard(card) {
+function selectCard(card, cardImg) {
 	selectedCards.push(card);
+	cardImg.classList.remove("card");
+	cardImg.classList.add("selectedCard");
 }
 
 //card selection clear
@@ -302,6 +296,15 @@ function unselectAllCards() {
 	while (selectedCards.length > 0) {
 		selectedCards.pop();
 	};
+	
+	for (let i = 0; i < helpfulArray.length; i++) {
+		if (helpfulArray[i].classList.includes("selectedCard")) {
+			helpfulArray[i].classList.remove("selectedCard");
+			helpfulArray[i].classList.add("card");
+			
+		}
+	};
+	
 }
 
 //selection checker to determine if it can be played
