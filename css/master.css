@@ -70,3 +70,17 @@ text-align: center;
 	width: 100%;
 	height: 100%;
 }
+#rulesButton{
+ margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 54%;
+  transform: translate(-50%, -50%);
+} 
+#startButton{
+ margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 46%;
+  transform: translate(-50%, -50%);
+} 
