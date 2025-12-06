@@ -4,7 +4,6 @@
     display: flex;
     justify-content: center;
     fill: aqua;
-    background-image:url(table.png);
 }
 
 #rulespage{
@@ -37,6 +36,7 @@ text-align: center;
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 70%;
+
 }
 
 .card {
@@ -69,6 +69,10 @@ text-align: center;
 #screen {
 	width: 100%;
 	height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
 }
 #rulesButton{
  margin: 0;
@@ -87,5 +91,11 @@ text-align: center;
   
 } 
 #startscreen{
-background-image: url(city_background.png);	
+background-image:url("images/king.png");
+background-color: #cccccc;
+height: 500px;
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+position: relative;
 }
