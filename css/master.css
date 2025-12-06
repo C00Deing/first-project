@@ -29,6 +29,7 @@ font-size: xx-large;
 padding: 16px 32px;
 margin: 4px 2px;
 text-align: center;
+color: aliceblue;
 }
 
 #main{
@@ -91,11 +92,8 @@ text-align: center;
   
 } 
 #startscreen{
-background-image:url("images/king.png");
-background-color: #cccccc;
-height: 500px;
-background-position: center;
-background-repeat: no-repeat;
-background-size: cover;
-position: relative;
+	background-image: url(../images/city_background.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 100%;
 }
