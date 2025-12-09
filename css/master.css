@@ -97,3 +97,6 @@ color: aliceblue;
 	background-position: center;
 	background-size: 100%;
 }
+#sideinfo{ 
+  float: left;  
+}
