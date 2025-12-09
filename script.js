@@ -49,6 +49,8 @@ if (document.URL.includes("index.html")) {
 	helpfulArray.push(document.getElementById("cards12"));
 	helpfulArray.push(document.getElementById("cards13"));
 	helpfulArray.push(document.getElementById("cards14"));
+	
+	
 		
 	document.addEventListener("keydown", function(event) {
 		if (event.code == 'ArrowLeft') {
@@ -57,14 +59,26 @@ if (document.URL.includes("index.html")) {
 			
 			for (let i = 0; i < 14; i++) {
 				helpfulArray[i].src = display(hand1[i]);
-				selectCard(hand1[i], helpfulArray[i]);
 				
-				//helpfulArray[i].classList.remove("card");
-				//helpfulArray[i].classList.add("selectedCard");
+				helpfulArray[i].addEventListener("click", function(event) {
+				selectCard(hand1[i], helpfulArray[i]);
+			});
+				
 			};
 			
 			
 			
+			
+		}
+		
+		
+		if (event.code == 'ArrowUp') {
+			
+			if (selectedCards.length > 0) {
+				if (selectChecker()) {
+					play(hand1, selectedCards[0]);
+				} 
+			}
 			
 			
 		}
@@ -241,6 +255,7 @@ function roundStart() {
 function play(hand, card) {
 	midCard.pop();
 	midCard.push(card);
+	document.getElementById(cards15).src = display(midCard[0]);
 	
 }
 
@@ -287,8 +302,14 @@ function turnOrder(handSet) {
 //card selection function
 function selectCard(card, cardImg) {
 	selectedCards.push(card);
-	cardImg.classList.remove("card");
-	cardImg.classList.add("selectedCard");
+	if (cardImg.classList.contains("card")) {
+		cardImg.classList.remove("card");
+		cardImg.classList.add("selectedCard");
+	}
+	else if (cardImg.classList.contains("selectedCard")) {
+		cardImg.classList.remove("selectedCard");
+		cardImg.classList.add("card");
+	}
 }
 
 //card selection clear
