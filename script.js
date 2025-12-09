@@ -50,6 +50,11 @@ if (document.URL.includes("index.html")) {
 	helpfulArray.push(document.getElementById("cards13"));
 	helpfulArray.push(document.getElementById("cards14"));
 	
+	for (let i = 0; i < 14; i++) {
+		helpfulArray[i].addEventListener("click", function(event) {
+				selectCard(hand1[i], helpfulArray[i]);
+		});		
+	};
 	
 		
 	document.addEventListener("keydown", function(event) {
@@ -59,11 +64,6 @@ if (document.URL.includes("index.html")) {
 			
 			for (let i = 0; i < 14; i++) {
 				helpfulArray[i].src = display(hand1[i]);
-				
-				helpfulArray[i].addEventListener("click", function(event) {
-				selectCard(hand1[i], helpfulArray[i]);
-			});
-				
 			};
 			
 			
@@ -72,11 +72,12 @@ if (document.URL.includes("index.html")) {
 		}
 		
 		
-		if (event.code == 'ArrowUp') {
+		else if (event.code == 'ArrowRight') {
 			
 			if (selectedCards.length > 0) {
 				if (selectChecker()) {
-					play(hand1, selectedCards[0]);
+					play(hand1);
+					
 				} 
 			}
 			
@@ -244,18 +245,57 @@ function roundStart() {
 	}
 	while (midCard.length > 0) {
 		midCard.pop();
+		
 	};
-	
+	document.getElementById("cards15").src = "images/emptyCard.png";
+	document.getElementById("cards16").src = "images/emptyCard.png";
+	document.getElementById("cards17").src = "images/emptyCard.png";
+	document.getElementById("cards18").src = "images/emptyCard.png";
 	
 	midCard.push(card0);
 	turnCount++;
 }
 
 //play a card
-function play(hand, card) {
-	midCard.pop();
-	midCard.push(card);
-	document.getElementById(cards15).src = display(midCard[0]);
+function play(hand) {
+	
+	while (midCard.length > 0) {
+		midCard.pop();
+		
+	}
+	document.getElementById("cards15").src = "images/emptyCard.png";
+	document.getElementById("cards16").src = "images/emptyCard.png";
+	document.getElementById("cards17").src = "images/emptyCard.png";
+	document.getElementById("cards18").src = "images/emptyCard.png";
+	
+	midCard.push(selectedCards[0]);
+	document.getElementById("cards15").src = display(selectedCards[0]);
+	let tempNum = hand.indexOf(selectedCards[0]);
+	helpfulArray[tempNum].src = "images/emptyCard.png";
+	
+	if (selectedCards.length > 1) {
+		midCard.push(selectedCards[1]);
+		document.getElementById("cards16").src = display(selectedCards[1]);
+		let tempNum = hand.indexOf(selectedCards[1]);
+		helpfulArray[tempNum].src = "images/emptyCard.png";
+	}
+	
+	if (selectedCards.length > 2) {
+		midCard.push(selectedCards[2]);
+		document.getElementById("cards17").src = display(selectedCards[2]);
+		let tempNum = hand.indexOf(selectedCards[2]);
+		helpfulArray[tempNum].src = "images/emptyCard.png";
+	}
+	
+	if (selectedCards.length > 3) {
+		midCard.push(selectedCards[3]);
+		document.getElementById("cards18").src = display(selectedCards[3]);
+		let tempNum = hand.indexOf(selectedCards[3]);
+		helpfulArray[tempNum].src = "images/emptyCard.png";
+	}
+	
+	
+	
 	
 }
 
@@ -301,12 +341,14 @@ function turnOrder(handSet) {
 
 //card selection function
 function selectCard(card, cardImg) {
-	selectedCards.push(card);
 	if (cardImg.classList.contains("card")) {
+		selectedCards.push(card);
 		cardImg.classList.remove("card");
 		cardImg.classList.add("selectedCard");
 	}
 	else if (cardImg.classList.contains("selectedCard")) {
+		let temp = selectedCards.indexOf(card);
+		selectedCards.splice(temp,1);
 		cardImg.classList.remove("selectedCard");
 		cardImg.classList.add("card");
 	}
@@ -330,7 +372,7 @@ function unselectAllCards() {
 
 //selection checker to determine if it can be played
 function selectChecker() {
-
+//
 	if (selectedCards.length == midCard.length || selectedCards.length < 5 && selectedCards.length > 0 && midCard.length == 1 && midCard[0].val == 0) {
 		//makes an array of just the values of the selected card(s)
 		tempArray = new Array();
@@ -351,10 +393,10 @@ function selectChecker() {
 			return false;
 		}
 		
-		if (tempArray.length == 1 && tempArray[0].val > tempArray2[0]) {
+		if (tempArray.length == 1 && tempArray[0] > tempArray2[0]) {
 			return true;
 		}
-		else if (tempArray.length < 1 && tempArray[0].val > tempArray2[0]) {
+		else if (tempArray.length > 1 && tempArray[0] > tempArray2[0]) {
 			let num = tempArray[0];
 			for (let i = tempArray.length - 1; i > 0; i--) {
 				if(tempArray[i] == 14 && num != 14) {
