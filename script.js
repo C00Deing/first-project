@@ -380,6 +380,9 @@ function selectChecker() {
 			tempArray.push(selectedCards[i].val);
 		}
 		tempArray.sort();
+		tempArray.reverse();
+		
+		
 		
 		//makes an array of just the values of the last played card(s)
 		tempArray2 = new Array();
@@ -398,13 +401,12 @@ function selectChecker() {
 		}
 		else if (tempArray.length > 1 && tempArray[0] > tempArray2[0]) {
 			let num = tempArray[0];
-			for (let i = tempArray.length - 1; i > 0; i--) {
-				if(tempArray[i] == 14 && num != 14) {
-					tempArray.pop;
-					tempArray.push(num);
-					tempArray.sort();
+			for (let i = 1; i < tempArray.length; i++) {
+				if (tempArray[i] == 14) {
+					tempArray[i] = tempArray[0];
 				}
 			}
+			
 			tempArray.sort();
 			if (tempArray[tempArray.length - 1] == tempArray[0]) {
 				return true;
