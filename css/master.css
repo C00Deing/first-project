@@ -116,3 +116,33 @@ color: aliceblue;
   left: 46%;
   transform: translate(-50%, -50%);
 } 
+#endscreen{
+	background-image: url(../images/chart.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 100%;  
+}
+#resultstitle{
+text-align: center;
+color: aliceblue;  
+}
+#resultplayer{
+float: left;
+padding: 125px;
+color: aliceblue;
+}
+#resultbot1{
+float: left;
+padding: 125px;
+color: aliceblue;
+}
+#resultbot2{
+float: left;
+padding: 125px;
+color: aliceblue;
+}
+#resultbot3{
+float: left;
+padding: 125px;
+color: aliceblue;
+}
