@@ -13,7 +13,7 @@ const selectedCards = new Array();
 
 const helpfulArray = new Array();
 
-let turnCount = 0;
+let turnCount = 1;
 
 let skipCount = 0;
 
@@ -50,6 +50,31 @@ if (document.URL.includes("index.html")) {
 	helpfulArray.push(document.getElementById("cards13"));
 	helpfulArray.push(document.getElementById("cards14"));
 	
+	document.getElementById("cardNum").innerHTML = turnCount;
+	
+	
+	document.getElementById("skipButton").addEventListener("click", function(event) {
+		skipCount++;
+		turn(hand2);
+		turn(hand3);
+		turn(hand4);
+	
+	});
+	
+	document.getElementById("playButton").addEventListener("click", function(event) {
+		if (selectedCards.length > 0) {
+			if (selectChecker()) {
+				play(hand1);
+				turn(hand2);
+				turn(hand3);
+				turn(hand4);
+				
+			} 
+		}
+	
+	});
+	
+	
 	for (let i = 0; i < 14; i++) {
 		helpfulArray[i].addEventListener("click", function(event) {
 				selectCard(hand1[i], helpfulArray[i]);
@@ -66,29 +91,15 @@ if (document.URL.includes("index.html")) {
 				helpfulArray[i].src = display(hand1[i]);
 			};
 			
-			
-			
-			
 		}
 		
-		
-		else if (event.code == 'ArrowRight') {
-			
-			if (selectedCards.length > 0) {
-				if (selectChecker()) {
-					play(hand1);
-					
-				} 
-			}
-			
-			
-		}
 	});
 }
 
 if (document.URL.includes("start.html")) {
 	document.getElementById("rulesButton").addEventListener("click", function(event) {
 		window.location.href = "rules.html";
+
 	
 	});
 
@@ -271,31 +282,51 @@ function play(hand) {
 	midCard.push(selectedCards[0]);
 	document.getElementById("cards15").src = display(selectedCards[0]);
 	let tempNum = hand.indexOf(selectedCards[0]);
-	helpfulArray[tempNum].src = "images/emptyCard.png";
+	if (hand == hand1) {
+		helpfulArray[tempNum].src = "images/emptyCard.png";
+	}
+	else {
+		hand.splice(tempNum, 1);
+	}
 	
 	if (selectedCards.length > 1) {
 		midCard.push(selectedCards[1]);
 		document.getElementById("cards16").src = display(selectedCards[1]);
 		let tempNum = hand.indexOf(selectedCards[1]);
-		helpfulArray[tempNum].src = "images/emptyCard.png";
+		if (hand == hand1) {
+			helpfulArray[tempNum].src = "images/emptyCard.png";
+		}
+		else {
+			hand.splice(tempNum, 1);
+		}
 	}
 	
 	if (selectedCards.length > 2) {
 		midCard.push(selectedCards[2]);
 		document.getElementById("cards17").src = display(selectedCards[2]);
 		let tempNum = hand.indexOf(selectedCards[2]);
-		helpfulArray[tempNum].src = "images/emptyCard.png";
+		if (hand == hand1) {
+			helpfulArray[tempNum].src = "images/emptyCard.png";
+		}
+		else {
+			hand.splice(tempNum, 1);
+		}
 	}
 	
 	if (selectedCards.length > 3) {
 		midCard.push(selectedCards[3]);
 		document.getElementById("cards18").src = display(selectedCards[3]);
 		let tempNum = hand.indexOf(selectedCards[3]);
-		helpfulArray[tempNum].src = "images/emptyCard.png";
+		if (hand == hand1) {
+			helpfulArray[tempNum].src = "images/emptyCard.png";
+		}
+		else {
+			hand.splice(tempNum, 1);
+		}
 	}
 	
-	
-	
+	skipCount = 0;
+	document.getElementById("cardNum").innerHTML = turnCount;
 	
 }
 
@@ -303,41 +334,31 @@ function play(hand) {
 function turn(hand) {
 	//set to lowest possible value
 	turnCount++;
-	temp = 20;
-	temp2 = midCard[0].val;
-	temp3 = hand[0];
-	hand.forEach((card, index) => {
-		if (card.val < temp && card.val > temp2) {
-			temp = card.val;
-			temp3 = card;
-		};
-	});
-	if (temp > temp2 && temp != 20) {
-		play(hand, temp3);
-		temp4 = hand.splice(hand.indexOf(temp3),1);
-		skipCount = 0;
-	}
-	else {
-		skipCount++;
+	
+	while (selectedCards.length > 0) {
+		selectedCards.pop();
 	}
 	
-}
-
-//breaking stuff for some reason
-/*
-//give an array of the hands
-function turnOrder(handSet) {
-	skipCount = 0;
-	counter = 0;
-	while (skipCount < 3) {
-		if (counter >= 4) {
-			counter -= 4;
+	
+	for (let i = 0; i < 100; i++) {
+		for (let i = 0; i < midCard.length; i++) {
+			selectedCards.push(hand[Math.floor(Math.random() * hand.length)]);
+		
+		};
+	
+		if (selectChecker()) {
+			play(hand);
+		
+		} 
+		else if (i == 99) {
+			skipCount++;
+			
 		}
-		turn(handSet[counter]);
-		counter++;
-	}
+	
+	};
+	document.getElementById("cardNum").innerHTML = turnCount;
+	
 }
-*/
 
 //card selection function
 function selectCard(card, cardImg) {
