@@ -1,5 +1,6 @@
 //this is how you comment btw
 
+
 //deck initializer
 const deck = new Array();
 
@@ -16,6 +17,8 @@ const helpfulArray = new Array();
 let turnCount = 1;
 
 let skipCount = 0;
+
+let winsCount = 0;
 
 const midCard = new Array();
 
@@ -50,25 +53,55 @@ if (document.URL.includes("index.html")) {
 	helpfulArray.push(document.getElementById("cards13"));
 	helpfulArray.push(document.getElementById("cards14"));
 	
-	document.getElementById("cardNum").innerHTML = turnCount;
 	
 	
 	document.getElementById("skipButton").addEventListener("click", function(event) {
 		skipCount++;
-		turn(hand2);
-		turn(hand3);
-		turn(hand4);
+		turnsOrder();
+				
+		if (skipCount >= 3) {
+					
+			while (midCard.length > 0) {
+				midCard.pop();
+		
+			};
+			
+			document.getElementById("cards15").src = "images/emptyCard.png";
+			document.getElementById("cards16").src = "images/emptyCard.png";
+			document.getElementById("cards17").src = "images/emptyCard.png";
+			document.getElementById("cards18").src = "images/emptyCard.png";
+	
+			midCard.push(card0);
+			skipCount = 0;
+					
+		}
 	
 	});
 	
 	document.getElementById("playButton").addEventListener("click", function(event) {
 		if (selectedCards.length > 0) {
 			if (selectChecker()) {
-				play(hand1);
-				turn(hand2);
-				turn(hand3);
-				turn(hand4);
 				
+				play(hand1);
+				
+				turnsOrder();
+				
+				if (skipCount >= 3) {
+					
+					while (midCard.length > 0) {
+						midCard.pop();
+		
+					};
+					
+					document.getElementById("cards15").src = "images/emptyCard.png";
+					document.getElementById("cards16").src = "images/emptyCard.png";
+					document.getElementById("cards17").src = "images/emptyCard.png";
+					document.getElementById("cards18").src = "images/emptyCard.png";
+	
+					midCard.push(card0);
+					skipCount = 0;
+					
+				}
 			} 
 		}
 	
@@ -115,6 +148,42 @@ if (document.URL.includes("rules.html")) {
 	});
 }
 
+function turnsOrder() {
+	if (hand1.length == 0) {
+		//p1 wn
+		winsCount++;
+		document.getElementById("p1Rank").innerHTML = winsCount;
+					
+					
+	}
+
+	for (let i = 1; i < turnOrder.length; i++) {
+		if (skipCount >= 3) {
+			skipCount = 0;
+			botLead(playerOrder[i])
+		}
+		else if (playerOrder[i].length > 0) {
+			turn(playerOrder[i]);
+		}
+				
+		if (playerOrder[i].length == 0) {
+			winsCount++;
+			if (playerOrder[i] == hand2) {
+				document.getElementById("p2Rank").innerHTML = winsCount;
+			}
+			else if (playerOrder[i] == hand3) {
+				document.getElementById("p3Rank").innerHTML = winsCount;
+			}
+			else if (playerOrder[i] == hand4) {
+				document.getElementById("p4Rank").innerHTML = winsCount;
+			}
+			turnOrder.splice(turnOrder[i],1)
+			playerOrder.splice(turnOrder[i],1)
+		}
+		
+	}
+
+}
 
 //make card function
 function Card(val, suit, face) {
@@ -233,6 +302,12 @@ function deckReset() {
 	while (hand4.length > 0) {
 		hand4.pop();
 	};
+	
+	skipCount = 0;
+	turnCount = 1;
+	document.getElementById("turnCount").innerHTML = turnCount;
+	document.getElementById("skipCount").innerHTML = skipCount;
+	
 }
 
 
@@ -325,14 +400,75 @@ function play(hand) {
 		}
 	}
 	
+	
 	skipCount = 0;
-	document.getElementById("cardNum").innerHTML = turnCount;
+	document.getElementById("turnCount").innerHTML = turnCount;
+	document.getElementById("skipCount").innerHTML = skipCount;
+	unselectAllCards();
 	
 }
 
+
+function botLead(hand) {
+	turnCount++;
+	
+	for (let i = 0; i < 10000; i++) {
+		//select # cards randomly
+		for (let j = 0; j < 4; j++) {
+			selectedCards.push(hand[Math.floor(Math.random() * hand.length)]);
+			
+		};
+		
+		//can cards be played?
+		if (selectChecker()) {
+			play(hand);
+			i = 20000;
+		}
+		
+		else if (i > 5000) {
+			unselectAllCards();
+			for (let k = 0; k < 3; k++) {
+				selectedCards.push(hand[Math.floor(Math.random() * hand.length)]);
+			
+			};
+			
+			if (selectChecker()) {
+				play(hand);
+				i = 20000;
+			}
+			
+			else if (i > 7500) {
+				unselectAllCards();
+				for (let l = 0; l < 2; l++) {
+					selectedCards.push(hand[Math.floor(Math.random() * hand.length)]);
+			
+				};
+			
+				if (selectChecker()) {
+					play(hand);
+					i = 20000;
+				}
+			
+				else if (i == 9999) {
+					unselectAllCards();
+					selectedCards.push(hand[Math.floor(Math.random() * hand.length)]);
+					play(hand);
+					i = 20000;
+				}
+			}
+		}
+	};
+	
+	
+	document.getElementById("turnCount").innerHTML = turnCount;
+	document.getElementById("skipCount").innerHTML = skipCount;
+	unselectAllCards();
+}
+
+
 //start a turn for given hand (bots)
 function turn(hand) {
-	//set to lowest possible value
+	
 	turnCount++;
 	
 	while (selectedCards.length > 0) {
@@ -340,23 +476,32 @@ function turn(hand) {
 	}
 	
 	
-	for (let i = 0; i < 100; i++) {
-		for (let i = 0; i < midCard.length; i++) {
+	for (let i = 0; i < 10000; i++) {
+		//select # cards randomly
+		for (let j = 0; j < midCard.length; j++) {
 			selectedCards.push(hand[Math.floor(Math.random() * hand.length)]);
-		
+			
 		};
-	
+		
+		//can cards be played?
 		if (selectChecker()) {
 			play(hand);
-		
+			i = 20000;
 		} 
-		else if (i == 99) {
+	
+		//no cards played
+		else if (i == 9999) {
 			skipCount++;
 			
 		}
+		
+		unselectAllCards();
 	
 	};
-	document.getElementById("cardNum").innerHTML = turnCount;
+	
+	document.getElementById("turnCount").innerHTML = turnCount;
+	document.getElementById("skipCount").innerHTML = skipCount;
+	unselectAllCards();
 	
 }
 
@@ -382,7 +527,7 @@ function unselectAllCards() {
 	};
 	
 	for (let i = 0; i < helpfulArray.length; i++) {
-		if (helpfulArray[i].classList.includes("selectedCard")) {
+		if (helpfulArray[i].classList.contains("selectedCard")) {
 			helpfulArray[i].classList.remove("selectedCard");
 			helpfulArray[i].classList.add("card");
 			
@@ -394,7 +539,7 @@ function unselectAllCards() {
 //selection checker to determine if it can be played
 function selectChecker() {
 //
-	if (selectedCards.length == midCard.length || selectedCards.length < 5 && selectedCards.length > 0 && midCard.length == 1 && midCard[0].val == 0) {
+	if (selectedCards.length == midCard.length || selectedCards.length < 5 && selectedCards.length > 0 && midCard[0].val == 0) {
 		//makes an array of just the values of the selected card(s)
 		tempArray = new Array();
 		for (let i = 0; i < selectedCards.length; i++) {
