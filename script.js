@@ -67,14 +67,14 @@ if (document.URL.includes("index.html")) {
 	document.getElementById("skipButton").addEventListener("click", function(event) {
 		skipCount++;
 		turnsOrder();
-				
+		
 		if (skipCount >= 3) {
 					
 			while (midCard.length > 0) {
 				midCard.pop();
 		
 			};
-			
+					
 			document.getElementById("cards15").src = "images/emptyCard.png";
 			document.getElementById("cards16").src = "images/emptyCard.png";
 			document.getElementById("cards17").src = "images/emptyCard.png";
@@ -82,8 +82,11 @@ if (document.URL.includes("index.html")) {
 	
 			midCard.push(card0);
 			skipCount = 0;
+			document.getElementById("turnCount").innerHTML = turnCount;
+			document.getElementById("skipCount").innerHTML = skipCount;
 					
 		}
+				
 	
 	});
 	
@@ -95,10 +98,11 @@ if (document.URL.includes("index.html")) {
 				play(hand1);
 				
 				
-				//document.getElementById("p1Rank").innerHTML = p1cards;
 				turnsOrder();
 				
 				document.getElementById("p1Rank").innerHTML = p1cards;
+				
+				
 				if (skipCount >= 3) {
 					
 					while (midCard.length > 0) {
@@ -113,8 +117,12 @@ if (document.URL.includes("index.html")) {
 	
 					midCard.push(card0);
 					skipCount = 0;
+					document.getElementById("turnCount").innerHTML = turnCount;
+					document.getElementById("skipCount").innerHTML = skipCount;
 					
 				}
+				
+				
 			} 
 		}
 	
@@ -184,6 +192,20 @@ function turnsOrder() {
 		
 		if (skipCount >= 3) {
 			skipCount = 0;
+			while (midCard.length > 0) {
+				midCard.pop();
+		
+			};
+			
+			document.getElementById("cards15").src = "images/emptyCard.png";
+			document.getElementById("cards16").src = "images/emptyCard.png";
+			document.getElementById("cards17").src = "images/emptyCard.png";
+			document.getElementById("cards18").src = "images/emptyCard.png";
+	
+			midCard.push(card0);
+			document.getElementById("turnCount").innerHTML = turnCount;
+			document.getElementById("skipCount").innerHTML = skipCount;
+			
 			botLead(turnOrder[i])
 		}
 		else if (turnOrder[i].length > 0) {
@@ -214,11 +236,11 @@ function turnsOrder() {
 	}
 	
 	
-	if (p1won == true && numWins < 3) {
+	if (p1won == true && winsCount < 3) {
 		turnsOrder();
 	}
-	else if (numWins >= 3) {
-		numWins = 0;
+	if (winsCount >= 3) {
+		winsCount = 0;
 		tempOrder.push(turnOrder[0])
 		if (turnOrder[0] = hand1) {
 			scoreCard[0] += winsCount + 1;
@@ -434,52 +456,43 @@ function play(hand) {
 	
 	midCard.push(selectedCards[0]);
 	document.getElementById("cards15").src = display(selectedCards[0]);
-	let tempNum = hand.indexOf(selectedCards[0]);
 	if (hand == hand1) {
+		let tempNum = hand.indexOf(selectedCards[0]);
 		helpfulArray[tempNum].src = "images/emptyCard.png";
 		p1cards--;
 	}
-	else {
-		hand.splice(tempNum, 1);
-	}
+
 	
 	if (selectedCards.length > 1) {
 		midCard.push(selectedCards[1]);
 		document.getElementById("cards16").src = display(selectedCards[1]);
-		let tempNum = hand.indexOf(selectedCards[1]);
 		if (hand == hand1) {
+			let tempNum = hand.indexOf(selectedCards[1]);
 			helpfulArray[tempNum].src = "images/emptyCard.png";
 			p1cards--;
-		}
-		else {
-			hand.splice(tempNum, 1);
 		}
 	}
 	
 	if (selectedCards.length > 2) {
 		midCard.push(selectedCards[2]);
 		document.getElementById("cards17").src = display(selectedCards[2]);
-		let tempNum = hand.indexOf(selectedCards[2]);
 		if (hand == hand1) {
+			let tempNum = hand.indexOf(selectedCards[2]);
 			helpfulArray[tempNum].src = "images/emptyCard.png";
 			p1cards--;
 		}
-		else {
-			hand.splice(tempNum, 1);
-		}
+		
 	}
 	
 	if (selectedCards.length > 3) {
 		midCard.push(selectedCards[3]);
 		document.getElementById("cards18").src = display(selectedCards[3]);
-		let tempNum = hand.indexOf(selectedCards[3]);
 		if (hand == hand1) {
+			let tempNum = hand.indexOf(selectedCards[3]);
 			helpfulArray[tempNum].src = "images/emptyCard.png";
 			p1cards--;
 		}
-		else {
-			hand.splice(tempNum, 1);
-		}
+		
 	}
 	
 	
@@ -494,13 +507,13 @@ function play(hand) {
 function botLead(hand) {
 	turnCount++;
 	
+	
 	for (let i = 0; i < 10000; i++) {
 		//select # cards randomly
 		for (let j = 0; j < 4; j++) {
 			let temp = Math.floor(Math.random() * hand.length)
 			selectedCards.push(hand[temp]);
 			hand.splice(temp, 1)
-			
 		};
 		
 		//can cards be played?
@@ -513,6 +526,7 @@ function botLead(hand) {
 			while (selectedCards.length > 0) {
 				hand.push(selectedCards.pop());
 			}
+			
 			for (let k = 0; k < 3; k++) {
 				let temp = Math.floor(Math.random() * hand.length)
 				selectedCards.push(hand[temp]);
@@ -529,6 +543,8 @@ function botLead(hand) {
 				while (selectedCards.length > 0) {
 					hand.push(selectedCards.pop());
 				}
+				
+				
 				for (let l = 0; l < 2; l++) {
 					let temp = Math.floor(Math.random() * hand.length)
 					selectedCards.push(hand[temp]);
@@ -542,14 +558,39 @@ function botLead(hand) {
 				}
 			
 				else if (i == 9999) {
-					unselectAllCards();
-					selectedCards.push(hand[Math.floor(Math.random() * hand.length)]);
+					
+					while (selectedCards.length > 0) {
+						hand.push(selectedCards.pop());
+					}
+					let temp = Math.floor(Math.random() * hand.length)
+					selectedCards.push(hand[temp]);
+					hand.splice(temp, 1)
 					play(hand);
-					i = 20000;
+					
+					i = 200000;
+				}
+				
+				else {
+					while (selectedCards.length > 0) {
+						hand.push(selectedCards.pop());
+					}
+				}
+			}
+			
+			else {
+				while (selectedCards.length > 0) {
+					hand.push(selectedCards.pop());
 				}
 			}
 		}
+		
+		else {
+			while (selectedCards.length > 0) {
+				hand.push(selectedCards.pop());
+			}
+		}
 	};
+	
 	
 	
 	document.getElementById("turnCount").innerHTML = turnCount;
