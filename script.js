@@ -96,13 +96,14 @@ if (document.URL.includes("index.html")) {
 				
 				
 				play(hand1);
+
+				turnsOrder();		
 				
+				while (p1won == true && winsCount < 3) {
+					turnsOrder();
+				}
 				
-				turnsOrder();
-				
-				document.getElementById("p1Rank").innerHTML = p1cards				
-				
-				if (skipCount >= turnOrder.length-1) {
+				if (skipCount >= turnOrder.length-1 && p1won == false) {
 					
 					while (midCard.length > 0) {
 						midCard.pop();
@@ -170,23 +171,97 @@ if (document.URL.includes("rules.html")) {
 
 function turnsOrder() {
 	
+	if (winsCount >= 3) {
+		winsCount = 0;
+		p1won = false;
+		
+		tempOrder.push(turnOrder[0])
+		if (turnOrder[0] = hand1) {
+			scoreCard[0] += winsCount + 1;
+		}
+		else if (turnOrder[0] = hand2) {
+			scoreCard[1] += winsCount + 1;
+		}
+		else if (turnOrder[0] = hand3) {
+			scoreCard[2] += winsCount + 1;
+		}
+		else if (turnOrder[0] = hand4) {
+			scoreCard[3] += winsCount + 1;
+		}
+		while (turnOrder.length > 0) {
+			turnOrder.pop()
+		}
+		while (playerOrder.length > 0) {
+			playerOrder.pop()
+		}
+		for (let i = 0; i < tempOrder.length; i++) {
+			turnOrder.push(tempOrder[i])
+			playerOrder.push(tempOrder[i])
+		}
+		
+		deckReset();
+		roundStart();
+			
+		for (let i = 0; i < 14; i++) {
+			helpfulArray[i].src = display(hand1[i]);
+		};
+			
+		if (turnOrder[0] != hand1) {
+			botLead(turnOrder[0]);
+			turnOrder.push(turnOrder.splice(turnOrder[0],1))
+		}
+		while (turnOrder[0] != hand1) {
+			turn(turnOrder[0]);
+			turnOrder.push(turnOrder.splice(turnOrder[0],1))
+		}
+		
+	}
+	
+	if (p1won == false && turnOrder.length < 3) {
+		p1cards = 0;
+	}
+	
 	if (p1cards == 0 && p1won != true) {
 		//p1 wn
 		winsCount++;
 		p1won = true;
 		tempOrder.push(hand1);
 		scoreCard[0] += winsCount;
-		document.getElementById("p1Rank").innerHTML = winsCount;
-		turnOrder.splice(turnOrder[turnOrder.indexOf(hand1)],1)
-		document.getElementById("p2Rank").innerHTML = "Hey its working kinda";
+		if (winsCount == 1) {
+					document.getElementById("p1Rank").innerHTML = "Tycoon";
+				}
+				if (winsCount == 2) {
+					document.getElementById("p1Rank").innerHTML = "Rich";
+				}
+				if (winsCount == 3) {
+					document.getElementById("p1Rank").innerHTML = "Poor";
+				}
+		turnOrder.splice(turnOrder.indexOf(hand1),1)
+		
+		if (turnOrder.length == 2) {
+			if (turnOrder[1].length > turnOrder[0].length) {
+				while (turnOrder[1].length > 0) {
+					turnOrder[1].pop()
+				}
+			}
+			else {
+				while (turnOrder[0].length > 0) {
+					turnOrder[0].pop()
+				}
+			}
+		}
+		
+		
 					
 					
 	}
+	
+	
+	
 
 	let tempNummy = 1;
 	if (p1won == true) {
 		tempNummy = 0;
-		document.getElementById("p2Rank").innerHTML = turnOrder.length;
 	}
 
 	for (let i = tempNummy; i < turnOrder.length; i++) {
@@ -202,7 +277,7 @@ function turnsOrder() {
 			document.getElementById("cards16").src = "images/emptyCard.png";
 			document.getElementById("cards17").src = "images/emptyCard.png";
 			document.getElementById("cards18").src = "images/emptyCard.png";
-	
+			
 			midCard.push(card0);
 			document.getElementById("turnCount").innerHTML = turnCount;
 			document.getElementById("skipCount").innerHTML = skipCount;
@@ -213,9 +288,6 @@ function turnsOrder() {
 		}
 		else if (turnOrder[i].length > 0) {
 			turn(turnOrder[i]);
-			document.getElementById("p2Rank").innerHTML = hand2.length;
-			document.getElementById("p3Rank").innerHTML = hand3.length;
-			document.getElementById("p4Rank").innerHTML = hand4.length;
 		}
 		
 		if (turnOrder[i].length == 0) {
@@ -223,9 +295,7 @@ function turnsOrder() {
 			if (turnOrder[i] == hand2) {
 				
 				if (winsCount == 1) {
-					document.getElementById("p3Rank").innerHTML = " ";
-					document.getElementById("p3Rank").innerHTML = document.getElementById("p3Rank").innerHTML + turnOrder[turnOrder.length-1];
-					document.getElementById("p3Rank").innerHTML = document.getElementById("p3Rank").innerHTML + " / " + turnOrder.length;
+					document.getElementById("p2Rank").innerHTML = "Tycoon";
 				}
 				if (winsCount == 2) {
 					document.getElementById("p2Rank").innerHTML = "Rich";
@@ -235,13 +305,11 @@ function turnsOrder() {
 				}
 				scoreCard[1] += winsCount;
 				tempOrder.push(hand2);
-				turnOrder.splice(turnOrder[turnOrder.indexOf(hand2)],1)
+				turnOrder.splice(turnOrder.indexOf(hand2),1)
 			}
 			else if (turnOrder[i] == hand3) {
 				if (winsCount == 1) {
-					document.getElementById("p3Rank").innerHTML = " ";
-					document.getElementById("p3Rank").innerHTML = document.getElementById("p3Rank").innerHTML + turnOrder[turnOrder.length-1];
-					document.getElementById("p3Rank").innerHTML = document.getElementById("p3Rank").innerHTML + " / " + turnOrder.length;
+					document.getElementById("p3Rank").innerHTML = "Tycoon";
 				}
 				if (winsCount == 2) {
 					document.getElementById("p3Rank").innerHTML = "Rich";
@@ -251,13 +319,11 @@ function turnsOrder() {
 				}
 				scoreCard[2] += winsCount;
 				tempOrder.push(hand3);
-				turnOrder.splice(turnOrder[turnOrder.indexOf(hand3)],1)
+				turnOrder.splice(turnOrder.indexOf(hand3),1)
 			}
 			else if (turnOrder[i] == hand4) {
 				if (winsCount == 1) {
-					document.getElementById("p3Rank").innerHTML = " ";
-					document.getElementById("p3Rank").innerHTML = document.getElementById("p3Rank").innerHTML + turnOrder[turnOrder.length-1];
-					document.getElementById("p3Rank").innerHTML = document.getElementById("p3Rank").innerHTML + " / " + turnOrder.length;
+					document.getElementById("p4Rank").innerHTML = "Tycoon";
 				}
 				if (winsCount == 2) {
 					document.getElementById("p4Rank").innerHTML = "Rich";
@@ -267,59 +333,16 @@ function turnsOrder() {
 				}
 				scoreCard[3] += winsCount;
 				tempOrder.push(hand4);
-				turnOrder.splice(turnOrder[turnOrder.indexOf(hand4)],1)
+				turnOrder.splice(turnOrder.indexOf(hand4),1)
 			}
 			
 		}
 		
 		
-	}
 	
 	
-	if (p1won == true && winsCount < 3) {
-		turnsOrder();
-	}
-	if (winsCount >= 3) {
-		winsCount = 0;
-		tempOrder.push(turnOrder[0])
-		if (turnOrder[0] = hand1) {
-			scoreCard[0] += winsCount + 1;
-		}
-		else if (turnOrder[1] = hand2) {
-			scoreCard[1] += winsCount + 1;
-		}
-		else if (turnOrder[2] = hand3) {
-			scoreCard[2] += winsCount + 1;
-		}
-		else if (turnOrder[3] = hand4) {
-			scoreCard[3] += winsCount + 1;
-		}
-		while (turnOrder.length > 0) {
-			turnOrder.pop()
-		}
-		while (playerOrder.length > 0) {
-			playerOrder.pop()
-		}
-		for (let i = 0; i < tempOrder.length; i++) {
-			turnOrder.push(tempOrder[i])
-			playerOrder.push(tempOrder[i])
-		}
-		
-		if (turnOrder[0] != hand1) {
-			botLead(turnOrder[0]);
-			turnOrder.push(turnOrder.splice(turnOrder[0],1))
-		}
-		while (turnOrder[0] != hand1) {
-			turn(turnOrder[0]);
-			turnOrder.push(turnOrder.splice(turnOrder[0],1))
-		}
-		
-		document.getElementById("p2Rank").innerHTML = "Hey its working";
-		
-		//HEY OVER HERE LOOK AT ME!!!!
-		//THIS IS WHERE ANYTHING BETWEEN TURNS NEEDS TO GO
-		//DONT FORGET OR YOU ARE DUMB AS HECK
-		//:)
+	
+	
 	}
 	
 	
