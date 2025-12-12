@@ -68,7 +68,7 @@ if (document.URL.includes("index.html")) {
 		skipCount++;
 		turnsOrder();
 		
-		if (skipCount >= 3) {
+		if (skipCount >= turnOrder.length-1) {
 					
 			while (midCard.length > 0) {
 				midCard.pop();
@@ -100,10 +100,9 @@ if (document.URL.includes("index.html")) {
 				
 				turnsOrder();
 				
-				document.getElementById("p1Rank").innerHTML = p1cards;
+				document.getElementById("p1Rank").innerHTML = p1cards				
 				
-				
-				if (skipCount >= 3) {
+				if (skipCount >= turnOrder.length-1) {
 					
 					while (midCard.length > 0) {
 						midCard.pop();
@@ -179,6 +178,7 @@ function turnsOrder() {
 		scoreCard[0] += winsCount;
 		document.getElementById("p1Rank").innerHTML = winsCount;
 		turnOrder.splice(turnOrder[turnOrder.indexOf(hand1)],1)
+		document.getElementById("p2Rank").innerHTML = "Hey its working kinda";
 					
 					
 	}
@@ -186,11 +186,12 @@ function turnsOrder() {
 	let tempNummy = 1;
 	if (p1won == true) {
 		tempNummy = 0;
+		document.getElementById("p2Rank").innerHTML = "testes";
 	}
 
 	for (let i = tempNummy; i < turnOrder.length; i++) {
 		
-		if (skipCount >= 3) {
+		if (skipCount >= turnOrder.length-1) {
 			skipCount = 0;
 			while (midCard.length > 0) {
 				midCard.pop();
@@ -218,18 +219,21 @@ function turnsOrder() {
 				document.getElementById("p2Rank").innerHTML = winsCount;
 				scoreCard[1] += winsCount;
 				tempOrder.push(hand2);
+				turnOrder.splice(turnOrder[turnOrder.indexOf(hand2)],1)
 			}
 			else if (turnOrder[i] == hand3) {
 				document.getElementById("p3Rank").innerHTML = winsCount;
 				scoreCard[2] += winsCount;
 				tempOrder.push(hand3);
+				turnOrder.splice(turnOrder[turnOrder.indexOf(hand3)],1)
 			}
 			else if (turnOrder[i] == hand4) {
 				document.getElementById("p4Rank").innerHTML = winsCount;
 				scoreCard[3] += winsCount;
 				tempOrder.push(hand4);
+				turnOrder.splice(turnOrder[turnOrder.indexOf(hand4)],1)
 			}
-			turnOrder.splice(turnOrder[i],1)
+			
 		}
 		
 		
@@ -273,6 +277,8 @@ function turnsOrder() {
 			turn(turnOrder[0]);
 			turnOrder.push(turnOrder.splice(turnOrder[0],1))
 		}
+		
+		document.getElementById("p2Rank").innerHTML = "Hey its working";
 		
 		//HEY OVER HERE LOOK AT ME!!!!
 		//THIS IS WHERE ANYTHING BETWEEN TURNS NEEDS TO GO
@@ -423,7 +429,6 @@ function draw() {
 function roundStart() {
 	while (deck.length > 0) {
 		hand1.push(draw());
-		p1cards++;
 		hand2.push(draw());
 		hand3.push(draw());
 		hand4.push(draw());
@@ -438,6 +443,7 @@ function roundStart() {
 	document.getElementById("cards17").src = "images/emptyCard.png";
 	document.getElementById("cards18").src = "images/emptyCard.png";
 	
+	p1cards = hand1.length;
 	midCard.push(card0);
 	turnCount++;
 }
@@ -688,8 +694,9 @@ function selectChecker() {
 			tempArray.push(selectedCards[i].val);
 		}
 		tempArray.sort();
-		tempArray.reverse();
-		
+		if (tempArray[0] == 14) {
+			tempArray.reverse();
+		}
 		
 		
 		//makes an array of just the values of the last played card(s)
@@ -698,7 +705,10 @@ function selectChecker() {
 			tempArray2.push(midCard[i].val);
 		}
 		tempArray2.sort();
-		tempArray2.reverse();
+		if (tempArray2[0] == 14) {
+			tempArray2.reverse();
+		}
+		
 		
 		//if the middle cards are just jokers you can't beat that
 		if(tempArray2[0] == 14) {
@@ -712,6 +722,7 @@ function selectChecker() {
 			let num = tempArray[0];
 			for (let i = 1; i < tempArray.length; i++) {
 				if (tempArray[i] == 14) {
+					
 					tempArray[i] = tempArray[0];
 				}
 			}
