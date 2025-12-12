@@ -20,6 +20,10 @@ let skipCount = 0;
 
 let winsCount = 0;
 
+let p1won = false;
+
+let p1cards = 0;
+
 const midCard = new Array();
 
 const turnOrder = new Array();
@@ -27,6 +31,11 @@ turnOrder.push(hand1,hand2,hand3,hand4);
 
 const playerOrder = new Array();
 playerOrder.push(hand1,hand2,hand3,hand4);
+
+const scoreCard = new Array();
+scoreCard.push(0,0,0,0);
+
+const tempOrder = new Array();
 
 //testing and the funny sound
 document.addEventListener("keydown", function(event) {
@@ -82,10 +91,14 @@ if (document.URL.includes("index.html")) {
 		if (selectedCards.length > 0) {
 			if (selectChecker()) {
 				
+				
 				play(hand1);
 				
+				
+				//document.getElementById("p1Rank").innerHTML = p1cards;
 				turnsOrder();
 				
+				document.getElementById("p1Rank").innerHTML = p1cards;
 				if (skipCount >= 3) {
 					
 					while (midCard.length > 0) {
@@ -149,39 +162,103 @@ if (document.URL.includes("rules.html")) {
 }
 
 function turnsOrder() {
-	if (hand1.length == 0) {
+	
+	if (p1cards == 0 && p1won != true) {
 		//p1 wn
 		winsCount++;
+		p1won = true;
+		tempOrder.push(hand1);
+		scoreCard[0] += winsCount;
 		document.getElementById("p1Rank").innerHTML = winsCount;
+		turnOrder.splice(turnOrder[turnOrder.indexOf(hand1)],1)
 					
 					
 	}
 
-	for (let i = 1; i < turnOrder.length; i++) {
+	let tempNummy = 1;
+	if (p1won == true) {
+		tempNummy = 0;
+	}
+
+	for (let i = tempNummy; i < turnOrder.length; i++) {
+		
 		if (skipCount >= 3) {
 			skipCount = 0;
-			botLead(playerOrder[i])
+			botLead(turnOrder[i])
 		}
-		else if (playerOrder[i].length > 0) {
-			turn(playerOrder[i]);
-		}
-				
-		if (playerOrder[i].length == 0) {
-			winsCount++;
-			if (playerOrder[i] == hand2) {
-				document.getElementById("p2Rank").innerHTML = winsCount;
-			}
-			else if (playerOrder[i] == hand3) {
-				document.getElementById("p3Rank").innerHTML = winsCount;
-			}
-			else if (playerOrder[i] == hand4) {
-				document.getElementById("p4Rank").innerHTML = winsCount;
-			}
-			turnOrder.splice(turnOrder[i],1)
-			playerOrder.splice(turnOrder[i],1)
+		else if (turnOrder[i].length > 0) {
+			turn(turnOrder[i]);
 		}
 		
+		if (turnOrder[i].length == 0) {
+			winsCount++;
+			if (turnOrder[i] == hand2) {
+				document.getElementById("p2Rank").innerHTML = winsCount;
+				scoreCard[1] += winsCount;
+				tempOrder.push(hand2);
+			}
+			else if (turnOrder[i] == hand3) {
+				document.getElementById("p3Rank").innerHTML = winsCount;
+				scoreCard[2] += winsCount;
+				tempOrder.push(hand3);
+			}
+			else if (turnOrder[i] == hand4) {
+				document.getElementById("p4Rank").innerHTML = winsCount;
+				scoreCard[3] += winsCount;
+				tempOrder.push(hand4);
+			}
+			turnOrder.splice(turnOrder[i],1)
+		}
+		
+		
 	}
+	
+	
+	if (p1won == true && numWins < 3) {
+		turnsOrder();
+	}
+	else if (numWins >= 3) {
+		numWins = 0;
+		tempOrder.push(turnOrder[0])
+		if (turnOrder[0] = hand1) {
+			scoreCard[0] += winsCount + 1;
+		}
+		else if (turnOrder[1] = hand2) {
+			scoreCard[1] += winsCount + 1;
+		}
+		else if (turnOrder[2] = hand3) {
+			scoreCard[2] += winsCount + 1;
+		}
+		else if (turnOrder[3] = hand4) {
+			scoreCard[3] += winsCount + 1;
+		}
+		while (turnOrder.length > 0) {
+			turnOrder.pop()
+		}
+		while (playerOrder.length > 0) {
+			playerOrder.pop()
+		}
+		for (let i = 0; i < tempOrder.length; i++) {
+			turnOrder.push(tempOrder[i])
+			playerOrder.push(tempOrder[i])
+		}
+		
+		if (turnOrder[0] != hand1) {
+			botLead(turnOrder[0]);
+			turnOrder.push(turnOrder.splice(turnOrder[0],1))
+		}
+		while (turnOrder[0] != hand1) {
+			turn(turnOrder[0]);
+			turnOrder.push(turnOrder.splice(turnOrder[0],1))
+		}
+		
+		//HEY OVER HERE LOOK AT ME!!!!
+		//THIS IS WHERE ANYTHING BETWEEN TURNS NEEDS TO GO
+		//DONT FORGET OR YOU ARE DUMB AS HECK
+		//:)
+	}
+	
+	
 
 }
 
@@ -322,8 +399,9 @@ function draw() {
 
 //round start
 function roundStart() {
-	while (deck.length > 3) {
+	while (deck.length > 0) {
 		hand1.push(draw());
+		p1cards++;
 		hand2.push(draw());
 		hand3.push(draw());
 		hand4.push(draw());
@@ -359,6 +437,7 @@ function play(hand) {
 	let tempNum = hand.indexOf(selectedCards[0]);
 	if (hand == hand1) {
 		helpfulArray[tempNum].src = "images/emptyCard.png";
+		p1cards--;
 	}
 	else {
 		hand.splice(tempNum, 1);
@@ -370,6 +449,7 @@ function play(hand) {
 		let tempNum = hand.indexOf(selectedCards[1]);
 		if (hand == hand1) {
 			helpfulArray[tempNum].src = "images/emptyCard.png";
+			p1cards--;
 		}
 		else {
 			hand.splice(tempNum, 1);
@@ -382,6 +462,7 @@ function play(hand) {
 		let tempNum = hand.indexOf(selectedCards[2]);
 		if (hand == hand1) {
 			helpfulArray[tempNum].src = "images/emptyCard.png";
+			p1cards--;
 		}
 		else {
 			hand.splice(tempNum, 1);
@@ -394,6 +475,7 @@ function play(hand) {
 		let tempNum = hand.indexOf(selectedCards[3]);
 		if (hand == hand1) {
 			helpfulArray[tempNum].src = "images/emptyCard.png";
+			p1cards--;
 		}
 		else {
 			hand.splice(tempNum, 1);
@@ -415,7 +497,9 @@ function botLead(hand) {
 	for (let i = 0; i < 10000; i++) {
 		//select # cards randomly
 		for (let j = 0; j < 4; j++) {
-			selectedCards.push(hand[Math.floor(Math.random() * hand.length)]);
+			let temp = Math.floor(Math.random() * hand.length)
+			selectedCards.push(hand[temp]);
+			hand.splice(temp, 1)
 			
 		};
 		
@@ -426,9 +510,13 @@ function botLead(hand) {
 		}
 		
 		else if (i > 5000) {
-			unselectAllCards();
+			while (selectedCards.length > 0) {
+				hand.push(selectedCards.pop());
+			}
 			for (let k = 0; k < 3; k++) {
-				selectedCards.push(hand[Math.floor(Math.random() * hand.length)]);
+				let temp = Math.floor(Math.random() * hand.length)
+				selectedCards.push(hand[temp]);
+				hand.splice(temp, 1)
 			
 			};
 			
@@ -438,9 +526,13 @@ function botLead(hand) {
 			}
 			
 			else if (i > 7500) {
-				unselectAllCards();
+				while (selectedCards.length > 0) {
+					hand.push(selectedCards.pop());
+				}
 				for (let l = 0; l < 2; l++) {
-					selectedCards.push(hand[Math.floor(Math.random() * hand.length)]);
+					let temp = Math.floor(Math.random() * hand.length)
+					selectedCards.push(hand[temp]);
+					hand.splice(temp, 1)
 			
 				};
 			
@@ -479,7 +571,9 @@ function turn(hand) {
 	for (let i = 0; i < 10000; i++) {
 		//select # cards randomly
 		for (let j = 0; j < midCard.length; j++) {
-			selectedCards.push(hand[Math.floor(Math.random() * hand.length)]);
+			let temp = Math.floor(Math.random() * hand.length)
+			selectedCards.push(hand[temp]);
+			hand.splice(temp, 1)
 			
 		};
 		
@@ -495,13 +589,20 @@ function turn(hand) {
 			
 		}
 		
-		unselectAllCards();
+		while (selectedCards.length > 0) {
+			hand.push(selectedCards.pop());
+		}
+		
 	
 	};
 	
 	document.getElementById("turnCount").innerHTML = turnCount;
 	document.getElementById("skipCount").innerHTML = skipCount;
-	unselectAllCards();
+	
+	
+	while (selectedCards.length > 0) {
+		hand.push(selectedCards.pop());
+	}
 	
 }
 
