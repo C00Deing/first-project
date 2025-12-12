@@ -186,7 +186,7 @@ function turnsOrder() {
 	let tempNummy = 1;
 	if (p1won == true) {
 		tempNummy = 0;
-		document.getElementById("p2Rank").innerHTML = "testes";
+		document.getElementById("p2Rank").innerHTML = turnOrder.length;
 	}
 
 	for (let i = tempNummy; i < turnOrder.length; i++) {
@@ -207,28 +207,64 @@ function turnsOrder() {
 			document.getElementById("turnCount").innerHTML = turnCount;
 			document.getElementById("skipCount").innerHTML = skipCount;
 			
+			
+			
 			botLead(turnOrder[i])
 		}
 		else if (turnOrder[i].length > 0) {
 			turn(turnOrder[i]);
+			document.getElementById("p2Rank").innerHTML = hand2.length;
+			document.getElementById("p3Rank").innerHTML = hand3.length;
+			document.getElementById("p4Rank").innerHTML = hand4.length;
 		}
 		
 		if (turnOrder[i].length == 0) {
 			winsCount++;
 			if (turnOrder[i] == hand2) {
-				document.getElementById("p2Rank").innerHTML = winsCount;
+				
+				if (winsCount == 1) {
+					document.getElementById("p3Rank").innerHTML = " ";
+					document.getElementById("p3Rank").innerHTML = document.getElementById("p3Rank").innerHTML + turnOrder[turnOrder.length-1];
+					document.getElementById("p3Rank").innerHTML = document.getElementById("p3Rank").innerHTML + " / " + turnOrder.length;
+				}
+				if (winsCount == 2) {
+					document.getElementById("p2Rank").innerHTML = "Rich";
+				}
+				if (winsCount == 3) {
+					document.getElementById("p2Rank").innerHTML = "Poor";
+				}
 				scoreCard[1] += winsCount;
 				tempOrder.push(hand2);
 				turnOrder.splice(turnOrder[turnOrder.indexOf(hand2)],1)
 			}
 			else if (turnOrder[i] == hand3) {
-				document.getElementById("p3Rank").innerHTML = winsCount;
+				if (winsCount == 1) {
+					document.getElementById("p3Rank").innerHTML = " ";
+					document.getElementById("p3Rank").innerHTML = document.getElementById("p3Rank").innerHTML + turnOrder[turnOrder.length-1];
+					document.getElementById("p3Rank").innerHTML = document.getElementById("p3Rank").innerHTML + " / " + turnOrder.length;
+				}
+				if (winsCount == 2) {
+					document.getElementById("p3Rank").innerHTML = "Rich";
+				}
+				if (winsCount == 3) {
+					document.getElementById("p3Rank").innerHTML = "Poor";
+				}
 				scoreCard[2] += winsCount;
 				tempOrder.push(hand3);
 				turnOrder.splice(turnOrder[turnOrder.indexOf(hand3)],1)
 			}
 			else if (turnOrder[i] == hand4) {
-				document.getElementById("p4Rank").innerHTML = winsCount;
+				if (winsCount == 1) {
+					document.getElementById("p3Rank").innerHTML = " ";
+					document.getElementById("p3Rank").innerHTML = document.getElementById("p3Rank").innerHTML + turnOrder[turnOrder.length-1];
+					document.getElementById("p3Rank").innerHTML = document.getElementById("p3Rank").innerHTML + " / " + turnOrder.length;
+				}
+				if (winsCount == 2) {
+					document.getElementById("p4Rank").innerHTML = "Rich";
+				}
+				if (winsCount == 3) {
+					document.getElementById("p4Rank").innerHTML = "Poor";
+				}
 				scoreCard[3] += winsCount;
 				tempOrder.push(hand4);
 				turnOrder.splice(turnOrder[turnOrder.indexOf(hand4)],1)
@@ -285,6 +321,8 @@ function turnsOrder() {
 		//DONT FORGET OR YOU ARE DUMB AS HECK
 		//:)
 	}
+	
+	
 	
 	
 
