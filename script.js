@@ -411,6 +411,7 @@ function selectChecker() {
 			tempArray2.push(midCard[i].val);
 		}
 		tempArray2.sort();
+		tempArray2.reverse();
 		
 		//if the middle cards are just jokers you can't beat that
 		if(tempArray2[0] == 14) {
