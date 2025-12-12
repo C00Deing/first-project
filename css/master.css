@@ -9,6 +9,7 @@
 #rulespage{
     font-size: smaller;
     float: left;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .button {
@@ -127,26 +128,31 @@ color: aliceblue;
 text-align: center;
 color: aliceblue;  
 font-size: x-large;
+font-family: Arial, Helvetica, sans-serif;
 }
 #resultplayer{
 float: left;
 padding: 125px;
 color: aliceblue;
+font-family: Arial, Helvetica, sans-serif;
 }
 #resultbot1{
 float: left;
 padding: 125px;
 color: aliceblue;
+font-family: Arial, Helvetica, sans-serif;
 }
 #resultbot2{
 float: left;
 padding: 125px;
 color: aliceblue;
+font-family: Arial, Helvetica, sans-serif;
 }
 #resultbot3{
 float: left;
 padding: 125px;
 color: aliceblue;
+font-family: Arial, Helvetica, sans-serif;
 }
 #turncounter{
 position: absolute;
@@ -154,6 +160,7 @@ top: 55%;
 left: 46%;
 transform: translate(-50%, -50%);
 color: aliceblue;
+font-family: Arial, Helvetica, sans-serif;
 } 
 #skipcounter{
 position: absolute;
@@ -161,4 +168,5 @@ top: 55%;
 left: 56%;
 transform: translate(-50%, -50%);
 color: aliceblue;
+font-family: Arial, Helvetica, sans-serif;
 }
