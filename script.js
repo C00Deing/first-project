@@ -15,9 +15,8 @@ const selectedCards = new Array();
 const helpfulArray = new Array();
 
 let turnCount = 1;
-
 let skipCount = 0;
-
+let roundsCount = 0;
 let winsCount = 0;
 
 let p1won = false;
@@ -507,6 +506,8 @@ function roundStart() {
 	p1cards = hand1.length;
 	midCard.push(card0);
 	turnCount++;
+	roundsCount++;
+	document.getElementById("roundCount").innerHTML = roundsCount;
 }
 
 //play a card
