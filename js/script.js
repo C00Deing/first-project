@@ -439,7 +439,7 @@ const card56 = new Card(14, "black", "joker");
 
 //sound effect
 function playSoundvb() {
-	let ding = new Audio('vineboom.mp3');
+	let ding = new Audio("sfx/smile.mp3");
 	ding.play();
 }
 
