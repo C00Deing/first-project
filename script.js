@@ -61,8 +61,6 @@ if (document.URL.includes("index.html")) {
 	helpfulArray.push(document.getElementById("cards13"));
 	helpfulArray.push(document.getElementById("cards14"));
 	
-	
-	
 	document.getElementById("skipButton").addEventListener("click", function(event) {
 		skipCount++;
 		turnsOrder();
@@ -133,20 +131,6 @@ if (document.URL.includes("index.html")) {
 				selectCard(hand1[i], helpfulArray[i]);
 		});		
 	};
-	
-		
-	document.addEventListener("keydown", function(event) {
-		if (event.code == 'ArrowLeft') {
-			deckReset();
-			roundStart();
-			
-			for (let i = 0; i < 14; i++) {
-				helpfulArray[i].src = display(hand1[i]);
-			};
-			
-		}
-		
-	});
 }
 
 if (document.URL.includes("start.html")) {
@@ -162,30 +146,31 @@ if (document.URL.includes("start.html")) {
 	});
 }
 
-if (document.URL.includes("rules.html")) {
+if (document.URL.includes("rules.html") || document.URL.includes("results.html")) {
 	document.getElementById("backButton").addEventListener("click", function(event) {
 		window.location.href = "start.html";
 	});
 }
 
+
+
 function turnsOrder() {
 	
 	if (winsCount >= 3) {
-		winsCount = 0;
 		p1won = false;
 		
 		tempOrder.push(turnOrder[0])
 		if (turnOrder[0] = hand1) {
-			scoreCard[0] += winsCount + 1;
+			scoreCard[0] += 4;
 		}
 		else if (turnOrder[0] = hand2) {
-			scoreCard[1] += winsCount + 1;
+			scoreCard[1] += 4;
 		}
 		else if (turnOrder[0] = hand3) {
-			scoreCard[2] += winsCount + 1;
+			scoreCard[2] += 4;
 		}
 		else if (turnOrder[0] = hand4) {
-			scoreCard[3] += winsCount + 1;
+			scoreCard[3] += 4;
 		}
 		while (turnOrder.length > 0) {
 			turnOrder.pop()
@@ -198,21 +183,24 @@ function turnsOrder() {
 			playerOrder.push(tempOrder[i])
 		}
 		
-		deckReset();
-		roundStart();
-			
-		for (let i = 0; i < 14; i++) {
-			helpfulArray[i].src = display(hand1[i]);
-		};
-			
-		if (turnOrder[0] != hand1) {
-			botLead(turnOrder[0]);
-			turnOrder.push(turnOrder.splice(turnOrder[0],1))
+		if (playerOrder[0] == hand1) {
+			alert("You WON! You were the tycoon!\nGreat Job!")
+			location.reload();
 		}
-		while (turnOrder[0] != hand1) {
-			turn(turnOrder[0]);
-			turnOrder.push(turnOrder.splice(turnOrder[0],1))
+		if (playerOrder[1] == hand1) {
+			alert("You did pretty good! You were rich!\nGo for Tycoon next time!")
+			location.reload();
 		}
+		if (playerOrder[2] == hand1) {
+			alert("Well... You got poor... at least it isn't last right?")
+			location.reload();
+		}
+		if (playerOrder[3] == hand1) {
+			alert("Oooooh... You were the beggar... thats rough...")
+			location.reload();
+		}
+
+		
 		
 	}
 	
@@ -228,16 +216,24 @@ function turnsOrder() {
 		scoreCard[0] += winsCount;
 		if (winsCount == 1) {
 					document.getElementById("p1Rank").innerHTML = "Tycoon";
+					alert("You WON! You were the tycoon!\nGreat Job!")
+					location.reload();
+					
 				}
 				if (winsCount == 2) {
 					document.getElementById("p1Rank").innerHTML = "Rich";
+					alert("You did pretty good! You were rich!\nGo for Tycoon next time!")
+					location.reload();
 				}
 				if (winsCount == 3) {
 					document.getElementById("p1Rank").innerHTML = "Poor";
 				}
 		turnOrder.splice(turnOrder.indexOf(hand1),1)
-		
-		if (turnOrder.length == 2) {
+					
+					
+	}
+	
+	if (turnOrder.length == 2 && p1won == true) {
 			if (turnOrder[1].length > turnOrder[0].length) {
 				while (turnOrder[1].length > 0) {
 					turnOrder[1].pop()
@@ -249,13 +245,6 @@ function turnsOrder() {
 				}
 			}
 		}
-		
-		
-					
-					
-	}
-	
-	
 	
 
 	let tempNummy = 1;
@@ -507,7 +496,6 @@ function roundStart() {
 	midCard.push(card0);
 	turnCount++;
 	roundsCount++;
-	document.getElementById("roundCount").innerHTML = roundsCount;
 }
 
 //play a card
@@ -810,4 +798,16 @@ function selectChecker() {
 
 function display(card) {
 	return "images/" + card.face + "_of_" + card.suit + ".png"
+}
+
+
+
+
+if (document.URL.includes("index.html")) {
+	deckReset();
+	roundStart();
+			
+	for (let i = 0; i < 14; i++) {
+		helpfulArray[i].src = display(hand1[i]);
+	};
 }
