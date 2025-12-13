@@ -44,7 +44,7 @@ document.addEventListener("keydown", function(event) {
 	}
 });
 
-if (document.URL.includes("index.html")) {
+if (document.URL.includes("game.html")) {
 	
 	helpfulArray.push(document.getElementById("cards1"));
 	helpfulArray.push(document.getElementById("cards2"));
@@ -133,7 +133,7 @@ if (document.URL.includes("index.html")) {
 	};
 }
 
-if (document.URL.includes("start.html")) {
+if (document.URL.includes("index.html")) {
 	document.getElementById("rulesButton").addEventListener("click", function(event) {
 		window.location.href = "rules.html";
 
@@ -141,14 +141,14 @@ if (document.URL.includes("start.html")) {
 	});
 
 	document.getElementById("startButton").addEventListener("click", function(event) {
-		window.location.href = "index.html";
+		window.location.href = "game.html";
 	
 	});
 }
 
-if (document.URL.includes("rules.html") || document.URL.includes("results.html")) {
+if (document.URL.includes("rules.html")) {
 	document.getElementById("backButton").addEventListener("click", function(event) {
-		window.location.href = "start.html";
+		window.location.href = "index.html";
 	});
 }
 
@@ -811,7 +811,7 @@ function display(card) {
 
 
 
-if (document.URL.includes("index.html")) {
+if (document.URL.includes("game.html")) {
 	deckReset();
 	roundStart();
 			
