@@ -205,7 +205,15 @@ function turnsOrder() {
 	}
 	
 	if (p1won == false && turnOrder.length < 3) {
-		p1cards = 0;
+		if (p1cards > turnOrder[1].length) {
+			alert("Oooooh... You were the beggar... thats rough...")
+			location.reload();
+		}
+		else {
+			document.getElementById("p1Rank").innerHTML = "Poor";
+			alert("Well... You got poor... at least it isn't last right?")
+			location.reload();
+		}
 	}
 	
 	if (p1cards == 0 && p1won != true) {
